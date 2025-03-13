@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { TaskService, Task } from '../task.service';
+
 
 @Component({
   selector: 'app-home',
@@ -7,30 +9,21 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
+@Inject({
+
+})
+
+
 export class HomePage {
 
-  items: {
-    id: number; name: string;
-  }[] = [];
-  nextId: number = 1;
-  constructor(public navCtrl: NavController) {
+  constructor(private taskService: TaskService, private task: Task) { }
 
+  ngOnInit() {
+    this.taskService.addTask();
+    this.taskService.getTasks;
+    this.taskService.deleteTask;
+    this.taskService.updateTask;
   }
 
-  addItem(name: string): void {
-    if (name.trim()) {
-      this.items.push({
-        id: this.nextId++,
-        name: name.trim(),
-      });
-    }
-    else {
-      console.error('El nombre y la fecha no pueden estar vacíos');
-    }
-  }
-
-  removeItem(id: number): void {
-    this.items = this.items.filter(item => item.id !== id);
-  }
 }
 
